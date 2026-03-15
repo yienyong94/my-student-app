@@ -19,13 +19,14 @@ import * as XLSX from 'xlsx';
 // ==========================================
 // FIREBASE CONFIGURATION
 // ==========================================
-const firebaseConfig = typeof __firebase_config !== 'undefined' && __firebase_config ? JSON.parse(__firebase_config) : {
-  apiKey: "AIzaSyAG-zAAbzl5Vd9rNLwARryCW82u_7Qtxa4",
-  authDomain: "pemulihan-digital.firebaseapp.com",
-  projectId: "pemulihan-digital",
-  storageBucket: "pemulihan-digital.firebasestorage.app",
-  messagingSenderId: "251844100047",
-  appId: "1:251844100047:web:62dab07c35a801f3035cba"
+const firebaseConfig = typeof __firebase_config !== 
+'undefined' && __firebase_config ? JSON.parse(__firebase_config) : {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);
