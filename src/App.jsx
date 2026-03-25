@@ -16,6 +16,13 @@ import {
 } from 'firebase/firestore';
 import * as XLSX from 'xlsx';
 
+const executeDelete = async () => {
+  console.log("Delete triggered! State:", { user: !!user, role, studentId: deleteConfirmation.studentId, db: !!db });
+  
+  if (!user || role !== 'admin' || !deleteConfirmation.studentId || !db) {
+     console.log("Delete blocked! One of the required conditions is missing.");
+     return;
+  }
 // ==========================================
 // FIREBASE CONFIGURATION
 // ==========================================
