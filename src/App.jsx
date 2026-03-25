@@ -16,13 +16,6 @@ import {
 } from 'firebase/firestore';
 import * as XLSX from 'xlsx';
 
-const executeDelete = async () => {
-  console.log("Delete triggered! State:", { user: !!user, role, studentId: deleteConfirmation.studentId, db: !!db });
-  
-  if (!user || role !== 'admin' || !deleteConfirmation.studentId || !db) {
-     console.log("Delete blocked! One of the required conditions is missing.");
-     return;
-  }
 // ==========================================
 // FIREBASE CONFIGURATION
 // ==========================================
@@ -453,6 +446,11 @@ export default function StudentDatabaseApp() {
     addSheet(students.filter(s => s.status === 'Lulus').map(s => ({ ...formatStudent(s), GraduationDate: s.graduationDate || '' })), "Lulus");
     
     XLSX.writeFile(workbook, "Student_Database.xlsx");
+  };
+
+  // The missing function that triggers the delete confirmation modal
+  const confirmDelete = (student) => {
+    setDeleteConfirmation({ isOpen: true, studentId: student.id, studentName: student.name });
   };
 
   const executeDelete = async () => {
@@ -1073,7 +1071,7 @@ export default function StudentDatabaseApp() {
                             } else {
                               setProgressSubject('BM');
                             }
-                         }}
+                          }}
                          className="w-full flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 border rounded-2xl transition-all text-left group bg-slate-800 border-slate-700 hover:border-indigo-500 hover:shadow-md"
                        >
                           <div className="flex items-center gap-3 flex-1 min-w-0 w-full">
@@ -1310,66 +1308,66 @@ export default function StudentDatabaseApp() {
                </div>
              ) : (
                <div className="space-y-10">
-                  {/* Profile Groups */}
-                  {currentSection === 'profile' && Object.keys(groupedProfileStudents).sort().map(className => {
-                    const style = getClassColorStyle(className);
-                    return (
-                      <div key={className} className="rounded-3xl border shadow-sm overflow-hidden bg-slate-800 border-slate-700">
-                        <div className={`px-8 py-4 border-b ${style.border} flex justify-between items-center bg-slate-800`}>
-                          <h3 className={`font-extrabold ${style.text} text-lg flex items-center gap-3`}>
-                            <School className={style.icon} size={20}/> {className}
-                          </h3>
-                          <span className={`text-xs font-bold bg-slate-900 border-slate-700 ${style.icon} px-3 py-1.5 border rounded-lg shadow-sm`}>
-                            {groupedProfileStudents[className].length} Students
-                          </span>
-                        </div>
-                        <div className="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                          {groupedProfileStudents[className].map(s => renderStudentCard(s, 'profile'))}
-                        </div>
-                      </div>
-                    )
-                  })}
-                  
-                  {/* PLaN Groups */}
-                  {currentSection === 'plan' && Object.keys(groupedPlanStudents).sort().map(yearGrp => (
-                    <div key={yearGrp} className="rounded-3xl border shadow-sm overflow-hidden bg-slate-800 border-slate-700">
-                      <div className="px-8 py-4 border-b flex justify-between items-center bg-blue-900/30 border-blue-800">
-                        <h3 className="font-extrabold text-lg flex items-center gap-2 text-blue-400">
-                          <BookOpenCheck className="text-blue-500" size={20}/>{yearGrp}
-                        </h3>
-                        <span className="text-xs font-bold px-3 py-1.5 border rounded-lg shadow-sm bg-slate-900 border-blue-800 text-blue-400">
-                          {groupedPlanStudents[yearGrp].length} Students
-                        </span>
-                      </div>
-                      <div className="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        {groupedPlanStudents[yearGrp].map(s => renderStudentCard(s, 'plan'))}
-                      </div>
-                    </div>
-                  ))}
+                 {/* Profile Groups */}
+                 {currentSection === 'profile' && Object.keys(groupedProfileStudents).sort().map(className => {
+                   const style = getClassColorStyle(className);
+                   return (
+                     <div key={className} className="rounded-3xl border shadow-sm overflow-hidden bg-slate-800 border-slate-700">
+                       <div className={`px-8 py-4 border-b ${style.border} flex justify-between items-center bg-slate-800`}>
+                         <h3 className={`font-extrabold ${style.text} text-lg flex items-center gap-3`}>
+                           <School className={style.icon} size={20}/> {className}
+                         </h3>
+                         <span className={`text-xs font-bold bg-slate-900 border-slate-700 ${style.icon} px-3 py-1.5 border rounded-lg shadow-sm`}>
+                           {groupedProfileStudents[className].length} Students
+                         </span>
+                       </div>
+                       <div className="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                         {groupedProfileStudents[className].map(s => renderStudentCard(s, 'profile'))}
+                       </div>
+                     </div>
+                   )
+                 })}
+                 
+                 {/* PLaN Groups */}
+                 {currentSection === 'plan' && Object.keys(groupedPlanStudents).sort().map(yearGrp => (
+                   <div key={yearGrp} className="rounded-3xl border shadow-sm overflow-hidden bg-slate-800 border-slate-700">
+                     <div className="px-8 py-4 border-b flex justify-between items-center bg-blue-900/30 border-blue-800">
+                       <h3 className="font-extrabold text-lg flex items-center gap-2 text-blue-400">
+                         <BookOpenCheck className="text-blue-500" size={20}/>{yearGrp}
+                       </h3>
+                       <span className="text-xs font-bold px-3 py-1.5 border rounded-lg shadow-sm bg-slate-900 border-blue-800 text-blue-400">
+                         {groupedPlanStudents[yearGrp].length} Students
+                       </span>
+                     </div>
+                     <div className="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                       {groupedPlanStudents[yearGrp].map(s => renderStudentCard(s, 'plan'))}
+                     </div>
+                   </div>
+                 ))}
 
-                  {/* MBK Flat List */}
-                  {currentSection === 'mbk' && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                      {filteredStudents.map(s => renderStudentCard(s, 'mbk'))}
-                    </div>
-                  )}
+                 {/* MBK Flat List */}
+                 {currentSection === 'mbk' && (
+                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                     {filteredStudents.map(s => renderStudentCard(s, 'mbk'))}
+                   </div>
+                 )}
 
-                  {/* Lulus Groups */}
-                  {currentSection === 'lulus' && Object.keys(groupedLulusStudents).sort().map(yearGrp => (
-                    <div key={yearGrp} className="rounded-3xl border shadow-sm overflow-hidden bg-slate-800 border-slate-700">
-                      <div className="px-8 py-4 border-b flex justify-between items-center bg-purple-900/30 border-purple-800">
-                        <h3 className="font-extrabold text-lg flex items-center gap-2 text-purple-400">
-                          <Calendar className="text-purple-500" size={20}/>{yearGrp}
-                        </h3>
-                        <span className="text-xs font-bold px-3 py-1.5 border rounded-lg shadow-sm bg-slate-900 border-purple-800 text-purple-400">
-                          {groupedLulusStudents[yearGrp].students.length} Students
-                        </span>
-                      </div>
-                      <div className="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        {groupedLulusStudents[yearGrp].students.map(s => renderStudentCard(s, 'lulus'))}
-                      </div>
-                    </div>
-                  ))}
+                 {/* Lulus Groups */}
+                 {currentSection === 'lulus' && Object.keys(groupedLulusStudents).sort().map(yearGrp => (
+                   <div key={yearGrp} className="rounded-3xl border shadow-sm overflow-hidden bg-slate-800 border-slate-700">
+                     <div className="px-8 py-4 border-b flex justify-between items-center bg-purple-900/30 border-purple-800">
+                       <h3 className="font-extrabold text-lg flex items-center gap-2 text-purple-400">
+                         <Calendar className="text-purple-500" size={20}/>{yearGrp}
+                       </h3>
+                       <span className="text-xs font-bold px-3 py-1.5 border rounded-lg shadow-sm bg-slate-900 border-purple-800 text-purple-400">
+                         {groupedLulusStudents[yearGrp].students.length} Students
+                       </span>
+                     </div>
+                     <div className="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                       {groupedLulusStudents[yearGrp].students.map(s => renderStudentCard(s, 'lulus'))}
+                     </div>
+                   </div>
+                 ))}
                </div>
              )}
            </div>
