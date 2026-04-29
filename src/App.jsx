@@ -41,11 +41,11 @@ const KEMAHIRAN_BM = [
   "KP 1: Huruf Kecil", "KP 2: Huruf Besar", "KP 3: Huruf Vokal", "KP 4: Suku Kata KV",
   "KP 5: Perkataan KV + KV", "KP 6: Perkataan V + KV", "KP 7: Perkataan KV + KV + KV", "KP 8: Perkataan KVK",
   "KP 9: Suku Kata KVK", "KP 10: Perkataan V + KVK", "KP 11: Perkataan KV + KVK", "KP 12: Perkataan KVK + KV",
-  "KP 13: Perkataan KVK + KVK", "KP 14: Perkataan KV + KV + KVK", "KP 15: Perkataan KV + KVK + KV", "KP 16: Perkataan KVK + KV + KV",
-  "KP 17: Perkataan KV + KVK + KVK", "KP 18: Perkataan KVK + KV + KVK", "KP 19: Perkataan KVK + KVK + KV", "KP 20: Perkataan KVK + KVK + KVK",
-  "KP 21: Perkataan KVKK", "KP 22: Perkataan V + KVKK", "KP 23: Perkataan K + VKK", "KP 24: Perkataan KV + KVKK",
-  "KP 25: Perkataan KVK + KVKK", "KP 26: Perkataan KVKK + KV", "KP 27: Perkataan KVKK + KVK", "KP 28: Perkataan KVKK + KVKK",
-  "KP 29: Perkataan KV + KV + KVKK", "KP 30: Perkataan KV + KVK + KVKK", "KP 31: Perkataan KVK + KV + KVKK", "KP 32: Bacaan dan Pemahaman"
+  "KP 13: Perkataan KVK + KVK", "KP 14: Perkataan KV + KV + KVK", "KP 15: Perkataan KVK + KV + KVK", "KP 16: Perkataan KVKK",
+  "KP 17: Suku Kata KVKK", "KP 18: Perkataan KV+KVKK", "KP 19: Perkataan V+KVKK", "KP 20: Perkataan KVK+KVKK",
+  "KP 21: Perkataan KVKK+KV", "KP 22: Perkataan KVKK+KVK", "KP 23: Perkataan KVKK+KVKK", "KP 24: Perkataan KV+KV+KVKK",
+  "KP 25: Perkataan KV+KVK+KVKK", "KP 26: Perkataan KVK+KV+KVKK", "KP 27: Perkataan KVKK+KV+KVK", "KP 28: Perkataan KV+KVKK+KVK",
+  "KP 29: Perkataan Diftong & Vokal Berganding", "KP 30: Perkataan Konsonan Bergabung & Digraf", "KP 31: Membaca dan Menulis Ayat Mudah", "KP 32: Bacaan dan Pemahaman"
 ];
 
 const KEMAHIRAN_MATH = [
